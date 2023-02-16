@@ -9,7 +9,8 @@ public class WFC_Map : MonoBehaviour
 
     [SerializeField] WFC_Slot[,] map;
 
-    bool autoCollapse = false;
+    bool gradualCollapse = false;
+    bool instantCollapse = false;
 
     void Update()
     {
@@ -26,12 +27,27 @@ public class WFC_Map : MonoBehaviour
         {
             CollapseLowestEntropy(map);
         }
-        if (Input.GetKeyDown(KeyCode.Backspace))
+
+        if (Input.GetKeyDown(KeyCode.F1))
         {
-            autoCollapse = !autoCollapse;
+            gradualCollapse = instantCollapse = false;
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            gradualCollapse = !gradualCollapse;
+            instantCollapse = false;
+        }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            instantCollapse = !instantCollapse;
+            gradualCollapse = false;
         }
 
-        if(autoCollapse)
+        if(instantCollapse)
+        {
+            while(CollapseLowestEntropy(map));
+        }
+        if (gradualCollapse)
         {
             CollapseLowestEntropy(map);
         }
@@ -65,26 +81,27 @@ public class WFC_Map : MonoBehaviour
         return newMap;
     }
 
-    void CollapseLowestEntropy(WFC_Slot[,] map)
+    bool CollapseLowestEntropy(WFC_Slot[,] map)
     {
         if (map == null)
-            return;
+            return false;
 
         WFC_Slot slot = GetLowestEntropySlot(map);
+        if (!slot)
+            return false;
 
-        if (slot)
+        if (slot.possibleModules.Length == 0)
         {
-            if (slot.possibleModules.Length == 0)
-            {
-                //implement a backtracking in oreder to redo some steps in order for this not be an issue
-                Debug.LogWarning("Slot: " + slot.name + " have 0 possible modules - Please Start Over...");
-                return;
-            }
-
-            WFC_Module collapsedModule = slot.possibleModules[Random.Range(0, slot.possibleModules.Length)];
-            slot.Collapse(collapsedModule);
-            NeightbourPossibleModulesReduction(map, slot);
+            //implement a backtracking in oreder to redo some steps in order for this not be an issue
+            Debug.LogWarning("Slot: " + slot.name + " have 0 possible modules - Please Start Over...");
+            return false;
         }
+
+        WFC_Module collapsedModule = slot.possibleModules[Random.Range(0, slot.possibleModules.Length)];
+        slot.Collapse(collapsedModule);
+        NeightbourPossibleModulesReduction(map, slot);
+
+        return true;
     }
 
     WFC_Slot GetLowestEntropySlot(WFC_Slot[,] map)
