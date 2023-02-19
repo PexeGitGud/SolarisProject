@@ -3,60 +3,49 @@ using System.Collections.Generic;
 
 public class WFC_Map : MonoBehaviour
 {
-    [SerializeField] int mapSize = 16;
+    [SerializeField] int mapSizeX = 16, mapSizeY = 16;
     [SerializeField] int tileSize = 1;
     [SerializeField] WFC_Slot slotPrefab;
 
     [SerializeField] WFC_Slot[,] map;
 
-    bool gradualCollapse = false;
-    bool instantCollapse = false;
+    public enum CollapseMode
+    {
+        Gradual,
+        Instantaneous,
+        Manual
+    }
+
+    [SerializeField] CollapseMode collapseMode;
+
+    bool stopUpdate = true;
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
-        {
-            Startup();
-        }
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            DestroyMap(map);
-            map = null;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CollapseLowestEntropy(map);
-        }
+        if (stopUpdate)
+            return;
 
-        if (Input.GetKeyDown(KeyCode.F1))
+        switch(collapseMode)
         {
-            gradualCollapse = instantCollapse = false;
-        }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            gradualCollapse = !gradualCollapse;
-            instantCollapse = false;
-        }
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            instantCollapse = !instantCollapse;
-            gradualCollapse = false;
-        }
-
-        if(instantCollapse)
-        {
-            while(CollapseLowestEntropy(map));
-        }
-        if (gradualCollapse)
-        {
-            CollapseLowestEntropy(map);
+            case CollapseMode.Gradual:
+                stopUpdate = !CollapseLowestEntropy(map);
+                break;
+            case CollapseMode.Instantaneous:
+                while (CollapseLowestEntropy(map)) ;
+                stopUpdate = true;
+                break; 
+            case CollapseMode.Manual:
+                if (Input.anyKey)
+                    stopUpdate = !CollapseLowestEntropy(map);
+                break;
         }
     }
 
-    void Startup()
+    public void Startup()
     {
         DestroyMap(map);
-        map = CreateNewEmptyMap(mapSize, mapSize, tileSize, slotPrefab);
+        map = CreateNewEmptyMap(mapSizeX, mapSizeY, tileSize, slotPrefab);
+        stopUpdate = false;
     }
 
     WFC_Slot[,] CreateNewEmptyMap(int mapSizeX, int mapSizeY, int tileSize, WFC_Slot slotPrefab)
@@ -92,14 +81,15 @@ public class WFC_Map : MonoBehaviour
 
         if (slot.possibleModules.Length == 0)
         {
-            //implement a backtracking in oreder to redo some steps in order for this not be an issue
+            slot.TurnRed();
             Debug.LogWarning("Slot: " + slot.name + " have 0 possible modules - Please Start Over...");
+            Invoke("Startup", 2.0f);
             return false;
         }
 
         WFC_Module collapsedModule = slot.possibleModules[Random.Range(0, slot.possibleModules.Length)];
         slot.Collapse(collapsedModule);
-        NeightbourPossibleModulesReduction(map, slot);
+        PropagatePossibleNeighbors(map, slot);
 
         return true;
     }
@@ -138,35 +128,23 @@ public class WFC_Map : MonoBehaviour
         return null;
     }
 
-    void NeightbourPossibleModulesReduction(WFC_Slot[,] map, WFC_Slot collapsedSlot) //propagate
+    void PropagatePossibleNeighbors(WFC_Slot[,] map, WFC_Slot collapsedSlot) //propagate
     {
-        //for(int i = (int)collapsedSlot.coord.x - 1; i <= (int)collapsedSlot.coord.x + 1; i++)
-        //{
-        //    for (int j = (int)collapsedSlot.coord.y - 1; j <= (int)collapsedSlot.coord.y + 1; j++)
-        //    {
-        //        if (i < 0 || j < 0 || i >= map.GetLength(0) || j >= map.GetLength(1))
-        //            continue;
-
-        //        //Debug.Log(i + "/" + j);
-        //        if (map[i, j].collapsed)
-        //            continue;
-
-        //        map[i, j].possibleModules = UpdatePossibleModules(map[i,j].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors);
-        //    }
-        //}
+        int coordX = (int)collapsedSlot.coord.x;
+        int coordY = (int)collapsedSlot.coord.y;
 
         //up
-        if(collapsedSlot.coord.y + 1 < map.GetLength(1))
-            map[(int)collapsedSlot.coord.x, (int)collapsedSlot.coord.y + 1].possibleModules = UpdatePossibleModules(map[(int)collapsedSlot.coord.x, (int)collapsedSlot.coord.y + 1].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors);
+        if (coordY + 1 < map.GetLength(1))
+            map[coordX, coordY + 1].possibleModules = UpdatePossibleModules(map[coordX, coordY + 1].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors);
         //right
-        if (collapsedSlot.coord.x + 1 < map.GetLength(0))
-            map[(int)collapsedSlot.coord.x + 1, (int)collapsedSlot.coord.y].possibleModules = UpdatePossibleModules(map[(int)collapsedSlot.coord.x + 1, (int)collapsedSlot.coord.y].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors);
+        if (coordX + 1 < map.GetLength(0))
+            map[coordX + 1, coordY].possibleModules = UpdatePossibleModules(map[coordX + 1, coordY].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors);
         //down
-        if (collapsedSlot.coord.y - 1 >= 0)
-            map[(int)collapsedSlot.coord.x, (int)collapsedSlot.coord.y - 1].possibleModules = UpdatePossibleModules(map[(int)collapsedSlot.coord.x, (int)collapsedSlot.coord.y - 1].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors);
+        if (coordY - 1 >= 0)
+            map[coordX, coordY - 1].possibleModules = UpdatePossibleModules(map[coordX, coordY - 1].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors);
         //left
-        if (collapsedSlot.coord.x - 1 >= 0)
-            map[(int)collapsedSlot.coord.x - 1, (int)collapsedSlot.coord.y].possibleModules = UpdatePossibleModules(map[(int)collapsedSlot.coord.x - 1, (int)collapsedSlot.coord.y].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors);
+        if (coordX - 1 >= 0)
+            map[coordX - 1, coordY].possibleModules = UpdatePossibleModules(map[coordX - 1, coordY].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors);
     }
 
     WFC_Module[] UpdatePossibleModules(WFC_Module[] oldModules, WFC_Module[] newModules)
@@ -200,4 +178,8 @@ public class WFC_Map : MonoBehaviour
             }
         }
     }
+
+    public void SetMapSizeX(int newMapSizeX) => mapSizeX = newMapSizeX; 
+    public void SetMapSizeY(int newMapSizeY) => mapSizeY = newMapSizeY; 
+    public void SetCollapseMode(CollapseMode newMode) => collapseMode = newMode; 
 }
