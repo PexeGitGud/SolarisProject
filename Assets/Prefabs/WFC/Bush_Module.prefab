@@ -243,4 +243,5 @@ MonoBehaviour:
   moduleName: Bush
   possibleNeighbors:
   - {fileID: 6413686394807194425, guid: a15603eea930cfd42b7c2716c704e0ef, type: 3}
-  - {fileID: 6413686394807194425, guid: 7611728def5a53649abb6dd07a4b1edb, type: 3}
+  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
+  probability: 0.4

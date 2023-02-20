@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fbf08189d6c6f02469aba508c94111ea, type: 2}
+  - {fileID: 2100000, guid: 69fc896dfc260a8439da70795513ca6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 5640843326060939261}
   - component: {fileID: 6413686394807194425}
   m_Layer: 0
-  m_Name: Grass_Module
+  m_Name: Rock_Module
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,11 +142,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335235bcb0e2b22448f9ed3fdf3489e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleName: Grass
+  moduleName: Rock
   possibleNeighbors:
   - {fileID: 6413686394807194425}
   - {fileID: 6413686394807194425, guid: c3bfe8899a50c6d4a9b4fbf3d9a3bfe1, type: 3}
   - {fileID: 6413686394807194425, guid: 22fc5a37e9a42b746b9b96de12fe2b6d, type: 3}
   - {fileID: 6413686394807194425, guid: 7611728def5a53649abb6dd07a4b1edb, type: 3}
-  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
-  probability: 0.5
+  - {fileID: 6413686394807194425, guid: acdb05ada80db074b8b25ceb4e37f5ef, type: 3}
+  - {fileID: 6413686394807194425, guid: 7bb9154c0570fee43b0b572794956d71, type: 3}
+  - {fileID: 6413686394807194425, guid: aac5f25cedd178f4db21161cff7698bc, type: 3}
+  probability: 0.05

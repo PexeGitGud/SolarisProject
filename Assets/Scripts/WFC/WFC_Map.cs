@@ -87,8 +87,8 @@ public class WFC_Map : MonoBehaviour
             return false;
         }
 
-        WFC_Module collapsedModule = slot.possibleModules[Random.Range(0, slot.possibleModules.Length)];
-        slot.Collapse(collapsedModule);
+        //WFC_Module collapsedModule = slot.possibleModules[Random.Range(0, slot.possibleModules.Length)];
+        slot.Collapse();
         PropagatePossibleNeighbors(map, slot);
 
         return true;

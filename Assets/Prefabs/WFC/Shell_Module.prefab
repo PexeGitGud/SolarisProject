@@ -244,3 +244,4 @@ MonoBehaviour:
   possibleNeighbors:
   - {fileID: 6413686394807194425, guid: 7611728def5a53649abb6dd07a4b1edb, type: 3}
   - {fileID: 6413686394807194425, guid: 7bb9154c0570fee43b0b572794956d71, type: 3}
+  probability: 0.5
