@@ -241,7 +241,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moduleName: Bush
-  possibleNeighbors:
+  possibleNeighbors_N:
+  - {fileID: 6413686394807194425, guid: a15603eea930cfd42b7c2716c704e0ef, type: 3}
+  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
+  possibleNeighbors_E:
+  - {fileID: 6413686394807194425, guid: a15603eea930cfd42b7c2716c704e0ef, type: 3}
+  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
+  possibleNeighbors_S:
+  - {fileID: 6413686394807194425, guid: a15603eea930cfd42b7c2716c704e0ef, type: 3}
+  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
+  possibleNeighbors_W:
   - {fileID: 6413686394807194425, guid: a15603eea930cfd42b7c2716c704e0ef, type: 3}
   - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
   probability: 0.4

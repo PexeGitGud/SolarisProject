@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class WFC_Map : MonoBehaviour
+public class WFC_Map_1 : MonoBehaviour
 {
     [SerializeField] int mapSizeX = 16, mapSizeY = 16;
     [SerializeField] int tileSize = 1;
-    [SerializeField] WFC_Slot slotPrefab;
+    [SerializeField] WFC_Slot_1 slotPrefab;
 
-    [SerializeField] WFC_Slot[,] map;
+    [SerializeField] WFC_Slot_1[,] map;
 
     public enum CollapseMode
     {
@@ -33,7 +33,7 @@ public class WFC_Map : MonoBehaviour
             case CollapseMode.Instantaneous:
                 while (CollapseLowestEntropy(map)) ;
                 stopUpdate = true;
-                break; 
+                break;
             case CollapseMode.Manual:
                 if (Input.anyKey)
                     stopUpdate = !CollapseLowestEntropy(map);
@@ -48,9 +48,9 @@ public class WFC_Map : MonoBehaviour
         stopUpdate = false;
     }
 
-    WFC_Slot[,] CreateNewEmptyMap(int mapSizeX, int mapSizeY, int tileSize, WFC_Slot slotPrefab)
+    WFC_Slot_1[,] CreateNewEmptyMap(int mapSizeX, int mapSizeY, int tileSize, WFC_Slot_1 slotPrefab)
     {
-        WFC_Slot[,] newMap = new WFC_Slot[mapSizeX, mapSizeY];
+        WFC_Slot_1[,] newMap = new WFC_Slot_1[mapSizeX, mapSizeY];
 
         for (int x = 0; x < mapSizeX; x++)
         {
@@ -58,7 +58,7 @@ public class WFC_Map : MonoBehaviour
             {
                 Vector3 offset = new Vector3(transform.position.x + tileSize * x - (mapSizeX / 2), 0, transform.position.z + tileSize * y - (mapSizeY / 2));
 
-                WFC_Slot newSlot = Instantiate(slotPrefab, offset, Quaternion.identity, transform);
+                WFC_Slot_1 newSlot = Instantiate(slotPrefab, offset, Quaternion.identity, transform);
                 newSlot.transform.localScale = new Vector3(tileSize, tileSize, tileSize);
                 newSlot.coord = new Vector2(x, y);
                 newSlot.name = x + "-" + y;
@@ -70,12 +70,12 @@ public class WFC_Map : MonoBehaviour
         return newMap;
     }
 
-    bool CollapseLowestEntropy(WFC_Slot[,] map)
+    bool CollapseLowestEntropy(WFC_Slot_1[,] map)
     {
         if (map == null)
             return false;
 
-        WFC_Slot slot = GetLowestEntropySlot(map);
+        WFC_Slot_1 slot = GetLowestEntropySlot(map);
         if (!slot)
             return false;
 
@@ -94,9 +94,9 @@ public class WFC_Map : MonoBehaviour
         return true;
     }
 
-    WFC_Slot GetLowestEntropySlot(WFC_Slot[,] map)
+    WFC_Slot_1 GetLowestEntropySlot(WFC_Slot_1[,] map)
     {
-        List<WFC_Slot> lowestEntropySlotList = new List<WFC_Slot>();
+        List<WFC_Slot_1> lowestEntropySlotList = new List<WFC_Slot_1>();
         int lowestEntropy = 0;
 
         for (int i = 0; i < map.GetLength(0); i++)
@@ -128,44 +128,59 @@ public class WFC_Map : MonoBehaviour
         return null;
     }
 
-    void PropagatePossibleNeighbors(WFC_Slot[,] map, WFC_Slot collapsedSlot) //propagate
+    void PropagatePossibleNeighbors(WFC_Slot_1[,] map, WFC_Slot_1 collapsedSlot) //propagate
     {
         int coordX = (int)collapsedSlot.coord.x;
         int coordY = (int)collapsedSlot.coord.y;
 
         //up
         if (coordY + 1 < map.GetLength(1))
-            map[coordX, coordY + 1].possibleModules = UpdatePossibleModules(map[coordX, coordY + 1].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors_N);
+            map[coordX, coordY + 1].possibleModules = UpdatePossibleModules_1(map[coordX, coordY + 1].possibleModules, 0, collapsedSlot.collapsedModule.N_Connector);
         //right
         if (coordX + 1 < map.GetLength(0))
-            map[coordX + 1, coordY].possibleModules = UpdatePossibleModules(map[coordX + 1, coordY].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors_E);
+            map[coordX + 1, coordY].possibleModules = UpdatePossibleModules_1(map[coordX + 1, coordY].possibleModules, 1, collapsedSlot.collapsedModule.E_Connector);
         //down
         if (coordY - 1 >= 0)
-            map[coordX, coordY - 1].possibleModules = UpdatePossibleModules(map[coordX, coordY - 1].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors_S);
+            map[coordX, coordY - 1].possibleModules = UpdatePossibleModules_1(map[coordX, coordY - 1].possibleModules, 2, collapsedSlot.collapsedModule.S_Connector);
         //left
         if (coordX - 1 >= 0)
-            map[coordX - 1, coordY].possibleModules = UpdatePossibleModules(map[coordX - 1, coordY].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors_W);
+            map[coordX - 1, coordY].possibleModules = UpdatePossibleModules_1(map[coordX - 1, coordY].possibleModules, 3, collapsedSlot.collapsedModule.W_Connector);
     }
 
-    WFC_Module[] UpdatePossibleModules(WFC_Module[] oldModules, WFC_Module[] newModules)
+    WFC_Module_1[] UpdatePossibleModules_1(WFC_Module_1[] possibleModules, int coord, Connector connector)
     {
-        List<WFC_Module> updatedModulesList= new List<WFC_Module>();
+        List<WFC_Module_1> updatedModulesList = new List<WFC_Module_1>();
 
-        for (int i = 0; i < oldModules.Length; i++)
+        switch(coord)
         {
-            for (int j = 0; j < newModules.Length; j++)
-            {
-                if (oldModules[i].moduleName == newModules[j].moduleName)
-                {
-                    updatedModulesList.Add(oldModules[i]);
-                }
-            }
+            case 0:
+                foreach(WFC_Module_1 module in possibleModules)
+                    if (module.S_Connector == connector) 
+                        updatedModulesList.Add(module);
+                break;
+            case 1:
+                foreach (WFC_Module_1 module in possibleModules)
+                    if (module.W_Connector == connector)
+                        updatedModulesList.Add(module);
+                break;
+
+            case 2:
+                foreach (WFC_Module_1 module in possibleModules)
+                    if (module.N_Connector == connector)
+                        updatedModulesList.Add(module);
+                break;
+
+            case 3:
+                foreach (WFC_Module_1 module in possibleModules)
+                    if (module.E_Connector == connector)
+                        updatedModulesList.Add(module);
+                break;
         }
 
         return updatedModulesList.ToArray();
     }
 
-    void DestroyMap(WFC_Slot[,] map)
+    void DestroyMap(WFC_Slot_1[,] map)
     {
         if (map == null)
             return;

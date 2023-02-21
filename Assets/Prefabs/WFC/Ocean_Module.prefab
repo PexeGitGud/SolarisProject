@@ -143,8 +143,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moduleName: Ocean
-  possibleNeighbors:
+  possibleNeighbors_N:
   - {fileID: 6413686394807194425}
   - {fileID: 6413686394807194425, guid: 7bb9154c0570fee43b0b572794956d71, type: 3}
   - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
+  - {fileID: 6413686394807194425, guid: 1147358acf0d7bf4ea3cb49b6a36b6cc, type: 3}
+  - {fileID: 6413686394807194425, guid: c6da1084fc2e95e4d88d6ac34a009854, type: 3}
+  possibleNeighbors_E:
+  - {fileID: 6413686394807194425}
+  - {fileID: 6413686394807194425, guid: 7bb9154c0570fee43b0b572794956d71, type: 3}
+  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
+  - {fileID: 6413686394807194425, guid: 1147358acf0d7bf4ea3cb49b6a36b6cc, type: 3}
+  possibleNeighbors_S:
+  - {fileID: 6413686394807194425}
+  - {fileID: 6413686394807194425, guid: 7bb9154c0570fee43b0b572794956d71, type: 3}
+  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
+  - {fileID: 6413686394807194425, guid: 1147358acf0d7bf4ea3cb49b6a36b6cc, type: 3}
+  - {fileID: 6413686394807194425, guid: c6da1084fc2e95e4d88d6ac34a009854, type: 3}
+  possibleNeighbors_W:
+  - {fileID: 6413686394807194425}
+  - {fileID: 6413686394807194425, guid: 7bb9154c0570fee43b0b572794956d71, type: 3}
+  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
+  - {fileID: 6413686394807194425, guid: c6da1084fc2e95e4d88d6ac34a009854, type: 3}
   probability: 0.5

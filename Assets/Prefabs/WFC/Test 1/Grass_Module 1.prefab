@@ -106,9 +106,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5640843326060939261}
-  - component: {fileID: 6413686394807194425}
+  - component: {fileID: 1543985332630763915}
   m_Layer: 0
-  m_Name: Grass_Module
+  m_Name: Grass_Module 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,7 +130,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6413686394807194425
+--- !u!114 &1543985332630763915
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,44 +139,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7880705702797481773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 335235bcb0e2b22448f9ed3fdf3489e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3efe241f088171a449ce52f9d4df4fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moduleName: Grass
-  possibleNeighbors_N:
-  - {fileID: 6413686394807194425}
-  - {fileID: 6413686394807194425, guid: 22fc5a37e9a42b746b9b96de12fe2b6d, type: 3}
-  - {fileID: 6413686394807194425, guid: 7611728def5a53649abb6dd07a4b1edb, type: 3}
-  - {fileID: 6413686394807194425, guid: c3bfe8899a50c6d4a9b4fbf3d9a3bfe1, type: 3}
-  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
-  - {fileID: 6413686394807194425, guid: 1147358acf0d7bf4ea3cb49b6a36b6cc, type: 3}
-  - {fileID: 6413686394807194425, guid: c6da1084fc2e95e4d88d6ac34a009854, type: 3}
-  - {fileID: 6413686394807194425, guid: 49c0f42663b98494eaafe0d8dc8883e0, type: 3}
-  possibleNeighbors_E:
-  - {fileID: 6413686394807194425}
-  - {fileID: 6413686394807194425, guid: 22fc5a37e9a42b746b9b96de12fe2b6d, type: 3}
-  - {fileID: 6413686394807194425, guid: 7611728def5a53649abb6dd07a4b1edb, type: 3}
-  - {fileID: 6413686394807194425, guid: c3bfe8899a50c6d4a9b4fbf3d9a3bfe1, type: 3}
-  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
-  - {fileID: 6413686394807194425, guid: 1147358acf0d7bf4ea3cb49b6a36b6cc, type: 3}
-  - {fileID: 6413686394807194425, guid: 460bc201340566a45bdd57020d60e985, type: 3}
-  - {fileID: 6413686394807194425, guid: 49c0f42663b98494eaafe0d8dc8883e0, type: 3}
-  possibleNeighbors_S:
-  - {fileID: 6413686394807194425}
-  - {fileID: 6413686394807194425, guid: 22fc5a37e9a42b746b9b96de12fe2b6d, type: 3}
-  - {fileID: 6413686394807194425, guid: 7611728def5a53649abb6dd07a4b1edb, type: 3}
-  - {fileID: 6413686394807194425, guid: c3bfe8899a50c6d4a9b4fbf3d9a3bfe1, type: 3}
-  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
-  - {fileID: 6413686394807194425, guid: 1147358acf0d7bf4ea3cb49b6a36b6cc, type: 3}
-  - {fileID: 6413686394807194425, guid: c6da1084fc2e95e4d88d6ac34a009854, type: 3}
-  - {fileID: 6413686394807194425, guid: 460bc201340566a45bdd57020d60e985, type: 3}
-  possibleNeighbors_W:
-  - {fileID: 6413686394807194425}
-  - {fileID: 6413686394807194425, guid: 22fc5a37e9a42b746b9b96de12fe2b6d, type: 3}
-  - {fileID: 6413686394807194425, guid: 7611728def5a53649abb6dd07a4b1edb, type: 3}
-  - {fileID: 6413686394807194425, guid: c3bfe8899a50c6d4a9b4fbf3d9a3bfe1, type: 3}
-  - {fileID: 6413686394807194425, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
-  - {fileID: 6413686394807194425, guid: c6da1084fc2e95e4d88d6ac34a009854, type: 3}
-  - {fileID: 6413686394807194425, guid: 460bc201340566a45bdd57020d60e985, type: 3}
-  - {fileID: 6413686394807194425, guid: 49c0f42663b98494eaafe0d8dc8883e0, type: 3}
-  probability: 0.5
+  N_Connector: 0
+  E_Connector: 0
+  S_Connector: 0
+  W_Connector: 0
+  rotated: 1
+  rotation: 0
+  probability: 5
