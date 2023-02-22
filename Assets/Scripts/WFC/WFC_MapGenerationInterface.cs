@@ -11,7 +11,7 @@ public class WFC_MapGenerationInterface : MonoBehaviour
     public Button toggle;
     public Vector2 normalPanelSize, minimizedPanelSize;
     public GameObject options;
-    public WFC_Map WFC_Map;
+    public WFC_Map wfcMap;
     public Camera mainCamera;
 
     bool minimized = false;
@@ -27,22 +27,22 @@ public class WFC_MapGenerationInterface : MonoBehaviour
 
     void OnMapSizeXChanged(string newXValue)
     {
-        WFC_Map.SetMapSizeX(int.Parse(newXValue));
+        wfcMap.SetMapSizeX(int.Parse(newXValue));
     }
     void OnMapSizeYChanged(string newYValue)
     {
-        WFC_Map.SetMapSizeY(int.Parse(newYValue));
+        wfcMap.SetMapSizeY(int.Parse(newYValue));
     }
     void OnGenerateMap()
     {
         int dist = Math.Max(int.Parse(mapSizeX_IF.text), int.Parse(mapSizeY_IF.text));
         mainCamera.transform.position = new Vector3(0, dist, 0);
 
-        WFC_Map.Startup();
+        wfcMap.Startup();
     }
     void OnCollapseModeChanged(int newMode)
     {
-        WFC_Map.SetCollapseMode((WFC_Map.CollapseMode) newMode);
+        wfcMap.SetCollapseMode((WFC_Map.CollapseMode) newMode);
     }
     void OnToggle()
     {

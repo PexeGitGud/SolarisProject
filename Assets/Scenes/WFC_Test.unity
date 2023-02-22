@@ -393,6 +393,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 93841020}
   m_CullTransparentMesh: 1
+--- !u!1 &102844091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 102844092}
+  m_Layer: 0
+  m_Name: ------------------------------------------------------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &102844092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102844091}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 566.9037, y: 566.3049, z: -0.2960205}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &157372890
 GameObject:
   m_ObjectHideFlags: 0
@@ -3369,7 +3400,7 @@ MonoBehaviour:
   normalPanelSize: {x: 180, y: 180}
   minimizedPanelSize: {x: 25, y: 25}
   options: {fileID: 500080867}
-  WFC_Map: {fileID: 1404987429}
+  wfcMap: {fileID: 1404987429}
   mainCamera: {fileID: 963194227}
 --- !u!1 &1812028885
 GameObject:

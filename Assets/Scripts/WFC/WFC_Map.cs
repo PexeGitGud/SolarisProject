@@ -87,7 +87,6 @@ public class WFC_Map : MonoBehaviour
             return false;
         }
 
-        //WFC_Module collapsedModule = slot.possibleModules[Random.Range(0, slot.possibleModules.Length)];
         slot.Collapse();
         PropagatePossibleNeighbors(map, slot);
 
@@ -135,31 +134,46 @@ public class WFC_Map : MonoBehaviour
 
         //up
         if (coordY + 1 < map.GetLength(1))
-            map[coordX, coordY + 1].possibleModules = UpdatePossibleModules(map[coordX, coordY + 1].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors_N);
+            map[coordX, coordY + 1].possibleModules = UpdatePossibleModules(map[coordX, coordY + 1].possibleModules, 0, collapsedSlot.collapsedModule.N_Connector);
         //right
         if (coordX + 1 < map.GetLength(0))
-            map[coordX + 1, coordY].possibleModules = UpdatePossibleModules(map[coordX + 1, coordY].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors_E);
+            map[coordX + 1, coordY].possibleModules = UpdatePossibleModules(map[coordX + 1, coordY].possibleModules, 1, collapsedSlot.collapsedModule.E_Connector);
         //down
         if (coordY - 1 >= 0)
-            map[coordX, coordY - 1].possibleModules = UpdatePossibleModules(map[coordX, coordY - 1].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors_S);
+            map[coordX, coordY - 1].possibleModules = UpdatePossibleModules(map[coordX, coordY - 1].possibleModules, 2, collapsedSlot.collapsedModule.S_Connector);
         //left
         if (coordX - 1 >= 0)
-            map[coordX - 1, coordY].possibleModules = UpdatePossibleModules(map[coordX - 1, coordY].possibleModules, collapsedSlot.collapsedModule.possibleNeighbors_W);
+            map[coordX - 1, coordY].possibleModules = UpdatePossibleModules(map[coordX - 1, coordY].possibleModules, 3, collapsedSlot.collapsedModule.W_Connector);
     }
 
-    WFC_Module[] UpdatePossibleModules(WFC_Module[] oldModules, WFC_Module[] newModules)
+    WFC_Module[] UpdatePossibleModules(WFC_Module[] possibleModules, int coord, Connector connector)
     {
         List<WFC_Module> updatedModulesList= new List<WFC_Module>();
 
-        for (int i = 0; i < oldModules.Length; i++)
+        switch (coord)
         {
-            for (int j = 0; j < newModules.Length; j++)
-            {
-                if (oldModules[i].moduleName == newModules[j].moduleName)
-                {
-                    updatedModulesList.Add(oldModules[i]);
-                }
-            }
+            case 0:
+                foreach (WFC_Module module in possibleModules)
+                    if (module.S_Connector == connector)
+                        updatedModulesList.Add(module);
+                break;
+            case 1:
+                foreach (WFC_Module module in possibleModules)
+                    if (module.W_Connector == connector)
+                        updatedModulesList.Add(module);
+                break;
+
+            case 2:
+                foreach (WFC_Module module in possibleModules)
+                    if (module.N_Connector == connector)
+                        updatedModulesList.Add(module);
+                break;
+
+            case 3:
+                foreach (WFC_Module module in possibleModules)
+                    if (module.E_Connector == connector)
+                        updatedModulesList.Add(module);
+                break;
         }
 
         return updatedModulesList.ToArray();
