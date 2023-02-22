@@ -4,6 +4,8 @@ public enum Connector
 {
     Grass,
     Rock_Stripe,
+    Sand,
+    Water
 }
 
 public class WFC_Module : MonoBehaviour
@@ -13,7 +15,7 @@ public class WFC_Module : MonoBehaviour
     public bool rotated = false;
     public int rotation = 0;
 
-    public float probability = 0.5f;
+    public float probability = 1.0f;
 
     public void RotateModule(int newRotation)
     {

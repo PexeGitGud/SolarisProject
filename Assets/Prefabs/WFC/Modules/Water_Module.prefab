@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fbf08189d6c6f02469aba508c94111ea, type: 2}
+  - {fileID: 2100000, guid: bd75f91375f883a47a4423e0b1083e0b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 5640843326060939261}
   - component: {fileID: 6413686394807194425}
   m_Layer: 0
-  m_Name: Grass_Module
+  m_Name: Water_Module
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,10 +142,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335235bcb0e2b22448f9ed3fdf3489e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  N_Connector: 0
-  E_Connector: 0
-  S_Connector: 0
-  W_Connector: 0
+  N_Connector: 3
+  E_Connector: 3
+  S_Connector: 3
+  W_Connector: 3
   rotated: 1
   rotation: 0
-  probability: 10
+  probability: 1
