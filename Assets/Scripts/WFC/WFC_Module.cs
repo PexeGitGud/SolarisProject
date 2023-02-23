@@ -17,6 +17,11 @@ public class WFC_Module : MonoBehaviour
 
     public float probability = 1.0f;
 
+    [Header("Module Dressing")]
+    public float moduleDressingProbability = 0.5f;
+    public GameObject[] possibleModuleDressings;
+    public GameObject selectedModuleDressing;
+
     public void RotateModule(int newRotation)
     {
         rotation = newRotation;
@@ -33,5 +38,18 @@ public class WFC_Module : MonoBehaviour
 
             rotated = true;
         }
+    }
+
+    public void InstatiateModuleDressing()
+    {
+        if (possibleModuleDressings.Length <= 0)
+            return;
+
+        if (Random.Range(0.0f, 1.0f) > moduleDressingProbability)
+            return;
+
+        int rand = Random.Range(0, possibleModuleDressings.Length);
+
+        selectedModuleDressing = Instantiate(possibleModuleDressings[rand], transform);
     }
 }

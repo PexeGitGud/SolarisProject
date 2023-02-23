@@ -19,9 +19,17 @@ public class WFC_Map : MonoBehaviour
     [SerializeField] CollapseMode collapseMode;
 
     bool stopUpdate = true;
+    bool mapCollapsed = false;
+    bool mapDressingCollapsed = false;
 
     void Update()
     {
+        if(mapCollapsed)
+        {
+            CollapseModuleDressings(map);
+            mapCollapsed = false;
+        }
+
         if (stopUpdate)
             return;
 
@@ -45,7 +53,7 @@ public class WFC_Map : MonoBehaviour
     {
         DestroyMap(map);
         map = CreateNewEmptyMap(mapSizeX, mapSizeY, tileSize, slotPrefab);
-        stopUpdate = false;
+        stopUpdate = mapCollapsed = false;
     }
 
     WFC_Slot[,] CreateNewEmptyMap(int mapSizeX, int mapSizeY, int tileSize, WFC_Slot slotPrefab)
@@ -77,7 +85,10 @@ public class WFC_Map : MonoBehaviour
 
         WFC_Slot slot = GetLowestEntropySlot(map);
         if (!slot)
+        {
+            mapCollapsed = true;
             return false;
+        }
 
         if (slot.possibleModules.Length == 0)
         {
@@ -189,6 +200,17 @@ public class WFC_Map : MonoBehaviour
             for(int j = 0; j < map.GetLength(1); j++)
             {
                 Destroy(map[i, j].gameObject);
+            }
+        }
+    }
+
+    void CollapseModuleDressings(WFC_Slot[,] map)
+    {
+        for(int i = 0; i < map.GetLength(0); i++)
+        {
+            for (int j = 0; j < map.GetLength(1); j++)
+            {
+                map[i, j].collapsedModule.InstatiateModuleDressing();
             }
         }
     }

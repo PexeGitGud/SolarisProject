@@ -148,4 +148,8 @@ MonoBehaviour:
   W_Connector: 0
   rotated: 1
   rotation: 0
-  probability: 10
+  probability: 20
+  possibleModuleDressings:
+  - {fileID: 7880705702797481773, guid: 22fc5a37e9a42b746b9b96de12fe2b6d, type: 3}
+  - {fileID: 7880705702797481773, guid: c3bfe8899a50c6d4a9b4fbf3d9a3bfe1, type: 3}
+  selectedModuleDressing: {fileID: 0}

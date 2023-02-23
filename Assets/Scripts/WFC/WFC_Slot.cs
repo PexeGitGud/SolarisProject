@@ -12,8 +12,7 @@ public class WFC_Slot : MonoBehaviour
 
     public void Collapse()
     {
-        collapsedModule = GetWeightedModule();
-        Instantiate(collapsedModule, transform);
+        collapsedModule = Instantiate(GetWeightedModule(), transform);
         Destroy(placeholderObj);
         collapsed = true;
     }

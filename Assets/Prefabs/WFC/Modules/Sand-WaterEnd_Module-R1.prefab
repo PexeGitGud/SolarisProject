@@ -51,7 +51,7 @@ MonoBehaviour:
   W_Connector: 2
   rotated: 1
   rotation: 1
-  probability: 0.2
+  probability: 0.1
 --- !u!1 &5531385073626225022
 GameObject:
   m_ObjectHideFlags: 0
