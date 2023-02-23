@@ -730,10 +730,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335235bcb0e2b22448f9ed3fdf3489e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  N_Connector: 1
-  E_Connector: 1
-  S_Connector: 0
-  W_Connector: 0
+  <N_Connector>k__BackingField: 1
+  <E_Connector>k__BackingField: 1
+  <S_Connector>k__BackingField: 0
+  <W_Connector>k__BackingField: 0
+  <probability>k__BackingField: 1
   rotated: 1
-  rotation: 0
-  probability: 0.1
+  rotationID: 0
+  moduleDressingProbability: 0.5
+  possibleModuleDressings: []
+  selectedModuleDressing: {fileID: 0}
+  <moduleDressed>k__BackingField: 1

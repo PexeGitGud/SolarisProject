@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class WFC_Slot : MonoBehaviour
 {
-    public GameObject placeholderObj;
+    [field: SerializeField] 
+    private GameObject placeholderObj;
     public WFC_Module[] possibleModules;
     public Vector2 coord = new Vector2(-1, -1);
-    public bool collapsed = false;
-    public WFC_Module collapsedModule;
+    [field: SerializeField]
+    public bool collapsed { get; private set; } = false;
+    [field: SerializeField]
+    public WFC_Module collapsedModule { get; private set; }
 
     public void Collapse()
     {

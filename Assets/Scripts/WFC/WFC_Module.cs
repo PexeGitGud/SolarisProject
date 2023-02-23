@@ -10,23 +10,36 @@ public enum Connector
 
 public class WFC_Module : MonoBehaviour
 {
-    public Connector N_Connector, E_Connector, S_Connector, W_Connector;
+    [field: Header("Connectors")]
+    [field: SerializeField]
+    public Connector N_Connector { get; private set; }
+    [field: SerializeField]
+    public Connector E_Connector { get; private set; }
+    [field: SerializeField]
+    public Connector S_Connector { get; private set; }
+    [field: SerializeField]
+    public Connector W_Connector { get; private set; }
+    [field: SerializeField]
+    public float probability { get; private set; } = 1.0f;
 
+    [field: Header("Module Rotation")]
     public bool rotated = false;
-    public int rotation = 0;
+    [field: SerializeField]
+    private int rotationID = 0;
 
-    public float probability = 1.0f;
-
-    [Header("Module Dressing")]
-    public float moduleDressingProbability = 0.5f;
-    public GameObject[] possibleModuleDressings;
-    public GameObject selectedModuleDressing;
+    [field: Header("Module Dressing")]
+    [field: SerializeField]
+    private WFC_ModuleDressing[] possibleModuleDressings;
+    [field: SerializeField]
+    private WFC_ModuleDressing selectedModuleDressing;
+    [field: SerializeField]
+    public bool moduleDressed { get; private set; } = false;
 
     public void RotateModule(int newRotation)
     {
-        rotation = newRotation;
+        rotationID = newRotation;
 
-        for (int i = 0; i < rotation; i++)
+        for (int i = 0; i < rotationID; i++)
         {
             Connector aux = N_Connector;
             N_Connector = W_Connector;
@@ -42,14 +55,30 @@ public class WFC_Module : MonoBehaviour
 
     public void InstatiateModuleDressing()
     {
+        moduleDressed = true;
+
         if (possibleModuleDressings.Length <= 0)
             return;
 
-        if (Random.Range(0.0f, 1.0f) > moduleDressingProbability)
-            return;
+        selectedModuleDressing = Instantiate(GetWeightedModuleDressing(), transform);
+    }
 
-        int rand = Random.Range(0, possibleModuleDressings.Length);
+    WFC_ModuleDressing GetWeightedModuleDressing()
+    {
+        float totalRatio = 0;
+        foreach (WFC_ModuleDressing pm in possibleModuleDressings)
+            totalRatio += pm.probability;
 
-        selectedModuleDressing = Instantiate(possibleModuleDressings[rand], transform);
+        float weightedRandom = Random.Range(0, totalRatio);
+
+        int weightedRandomIndex = 0;
+        foreach (WFC_ModuleDressing pm in possibleModuleDressings)
+        {
+            if ((weightedRandom -= pm.probability) < 0.0f)
+                break;
+            weightedRandomIndex++;
+        }
+
+        return possibleModuleDressings[weightedRandomIndex];
     }
 }

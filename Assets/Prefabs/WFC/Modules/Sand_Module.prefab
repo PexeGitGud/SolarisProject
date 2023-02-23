@@ -142,10 +142,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335235bcb0e2b22448f9ed3fdf3489e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  N_Connector: 2
-  E_Connector: 2
-  S_Connector: 2
-  W_Connector: 2
+  <N_Connector>k__BackingField: 2
+  <E_Connector>k__BackingField: 2
+  <S_Connector>k__BackingField: 2
+  <W_Connector>k__BackingField: 2
+  <probability>k__BackingField: 125
   rotated: 1
-  rotation: 0
-  probability: 5
+  rotationID: 0
+  possibleModuleDressings:
+  - {fileID: 7917185415758428197, guid: cb1596e9fd9a0f0499aaed0e1b7219e5, type: 3}
+  - {fileID: 7917185415758428197, guid: 22fc5a37e9a42b746b9b96de12fe2b6d, type: 3}
+  - {fileID: 7118200063047939931, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
+  selectedModuleDressing: {fileID: 0}
+  <moduleDressed>k__BackingField: 0

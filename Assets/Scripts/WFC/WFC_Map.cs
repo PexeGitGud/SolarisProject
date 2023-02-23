@@ -3,11 +3,15 @@ using System.Collections.Generic;
 
 public class WFC_Map : MonoBehaviour
 {
-    [SerializeField] int mapSizeX = 16, mapSizeY = 16;
-    [SerializeField] int tileSize = 1;
-    [SerializeField] WFC_Slot slotPrefab;
+    [field: SerializeField]
+    private int mapSizeX = 16, mapSizeY = 16;
+    [field: SerializeField]
+    private int tileSize = 1;
+    [field: SerializeField]
+    private WFC_Slot slotPrefab;
 
-    [SerializeField] WFC_Slot[,] map;
+    [field: SerializeField]
+    private WFC_Slot[,] map;
 
     public enum CollapseMode
     {
@@ -16,35 +20,35 @@ public class WFC_Map : MonoBehaviour
         Manual
     }
 
-    [SerializeField] CollapseMode collapseMode;
+    [field: SerializeField] 
+    private CollapseMode collapseMode;
 
-    bool stopUpdate = true;
+    bool stopCollapsing = true;
     bool mapCollapsed = false;
     bool mapDressingCollapsed = false;
 
     void Update()
     {
-        if(mapCollapsed)
+        if(mapCollapsed && !mapDressingCollapsed)
         {
             CollapseModuleDressings(map);
-            mapCollapsed = false;
         }
 
-        if (stopUpdate)
+        if (stopCollapsing)
             return;
 
         switch(collapseMode)
         {
             case CollapseMode.Gradual:
-                stopUpdate = !CollapseLowestEntropy(map);
+                stopCollapsing = !CollapseLowestEntropy(map);
                 break;
             case CollapseMode.Instantaneous:
                 while (CollapseLowestEntropy(map)) ;
-                stopUpdate = true;
+                stopCollapsing = true;
                 break; 
             case CollapseMode.Manual:
                 if (Input.anyKey)
-                    stopUpdate = !CollapseLowestEntropy(map);
+                    stopCollapsing = !CollapseLowestEntropy(map);
                 break;
         }
     }
@@ -53,7 +57,7 @@ public class WFC_Map : MonoBehaviour
     {
         DestroyMap(map);
         map = CreateNewEmptyMap(mapSizeX, mapSizeY, tileSize, slotPrefab);
-        stopUpdate = mapCollapsed = false;
+        stopCollapsing = mapCollapsed = mapDressingCollapsed = false;
     }
 
     WFC_Slot[,] CreateNewEmptyMap(int mapSizeX, int mapSizeY, int tileSize, WFC_Slot slotPrefab)
@@ -210,9 +214,14 @@ public class WFC_Map : MonoBehaviour
         {
             for (int j = 0; j < map.GetLength(1); j++)
             {
+                if (map[i, j].collapsedModule.moduleDressed)
+                    continue;
+
                 map[i, j].collapsedModule.InstatiateModuleDressing();
             }
         }
+
+        mapDressingCollapsed = true;
     }
 
     public void SetMapSizeX(int newMapSizeX) => mapSizeX = newMapSizeX; 

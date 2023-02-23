@@ -3402,6 +3402,7 @@ MonoBehaviour:
   options: {fileID: 500080867}
   wfcMap: {fileID: 1404987429}
   mainCamera: {fileID: 963194227}
+  minimized: 0
 --- !u!1 &1812028885
 GameObject:
   m_ObjectHideFlags: 0

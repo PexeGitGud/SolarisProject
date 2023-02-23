@@ -5,15 +5,23 @@ using System;
 
 public class WFC_MapGenerationInterface : MonoBehaviour
 {
-    public TMP_InputField mapSizeX_IF, mapSizeY_IF;
-    public Button generateMap_Button;
-    public TMP_Dropdown collapseMode_Dropdown;
-    public Button toggle;
-    public Vector2 normalPanelSize, minimizedPanelSize;
-    public GameObject options;
-    public WFC_Map wfcMap;
-    public Camera mainCamera;
-
+    [field: SerializeField]
+    private TMP_InputField mapSizeX_IF, mapSizeY_IF;
+    [field: SerializeField]
+    private Button generateMap_Button;
+    [field: SerializeField]
+    private TMP_Dropdown collapseMode_Dropdown;
+    [field: SerializeField]
+    private Button toggle;
+    [field: SerializeField]
+    private Vector2 normalPanelSize, minimizedPanelSize;
+    [field: SerializeField]
+    private GameObject options;
+    [field: SerializeField]
+    private WFC_Map wfcMap;
+    [field: SerializeField]
+    private Camera mainCamera;
+    [field: SerializeField]
     bool minimized = false;
 
     void Start()
