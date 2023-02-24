@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum Connector
+public enum GroundConnector
 {
     Grass,
     Rock_Stripe,
@@ -8,17 +8,20 @@ public enum Connector
     Water
 }
 
+[System.Serializable]
+public struct Connectors<T>
+{
+    public T N_Connector;
+    public T E_Connector;
+    public T S_Connector;
+    public T W_Connector;
+}
+
 public class WFC_Module : MonoBehaviour
 {
-    [field: Header("Connectors")]
     [field: SerializeField]
-    public Connector N_Connector { get; private set; }
-    [field: SerializeField]
-    public Connector E_Connector { get; private set; }
-    [field: SerializeField]
-    public Connector S_Connector { get; private set; }
-    [field: SerializeField]
-    public Connector W_Connector { get; private set; }
+    public Connectors<GroundConnector> groundConnectors { get; private set; }
+
     [field: SerializeField]
     public float probability { get; private set; } = 1.0f;
 
@@ -41,11 +44,12 @@ public class WFC_Module : MonoBehaviour
 
         for (int i = 0; i < rotationID; i++)
         {
-            Connector aux = N_Connector;
-            N_Connector = W_Connector;
-            W_Connector = S_Connector;
-            S_Connector = E_Connector;
-            E_Connector = aux;
+            Connectors<GroundConnector> newConnectors = new Connectors<GroundConnector>();
+            newConnectors.N_Connector = groundConnectors.W_Connector;
+            newConnectors.W_Connector = groundConnectors.S_Connector;
+            newConnectors.S_Connector = groundConnectors.E_Connector;
+            newConnectors.E_Connector = groundConnectors.N_Connector;
+            groundConnectors = newConnectors;
 
             transform.Rotate(0, 90, 0);
 

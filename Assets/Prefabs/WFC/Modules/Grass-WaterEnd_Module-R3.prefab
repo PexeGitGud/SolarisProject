@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8678957079570256971
+--- !u!1 &2342286881657846814
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2348536915057232847}
-  - component: {fileID: 7326339310822860283}
-  - component: {fileID: 4681196101298939503}
+  - component: {fileID: 8358405513588705194}
+  - component: {fileID: 970868230014144319}
+  - component: {fileID: 7992901097487336723}
   m_Layer: 0
   m_Name: TriangledCube
   m_TagString: Untagged
@@ -18,36 +18,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2348536915057232847
+--- !u!4 &8358405513588705194
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8678957079570256971}
+  m_GameObject: {fileID: 2342286881657846814}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 326959638596475588}
+  m_Father: {fileID: 2978565505594839726}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7326339310822860283
+--- !u!33 &970868230014144319
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8678957079570256971}
+  m_GameObject: {fileID: 2342286881657846814}
   m_Mesh: {fileID: -5495902117074765545, guid: 27114673b9b3d7742808a9f374914b6e, type: 3}
---- !u!23 &4681196101298939503
+--- !u!23 &7992901097487336723
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8678957079570256971}
+  m_GameObject: {fileID: 2342286881657846814}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &8810355239537938508
+--- !u!1 &7721235540876291311
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,8 +92,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 326959638596475588}
-  - component: {fileID: 4984962533173524122}
+  - component: {fileID: 2978565505594839726}
+  - component: {fileID: 357489773868114283}
   m_Layer: 0
   m_Name: Grass-WaterEnd_Module-R3
   m_TagString: Untagged
@@ -101,42 +101,42 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &326959638596475588
+--- !u!4 &2978565505594839726
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8810355239537938508}
+  m_GameObject: {fileID: 7721235540876291311}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: -0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2348536915057232847}
+  - {fileID: 8358405513588705194}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4984962533173524122
+--- !u!114 &357489773868114283
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8810355239537938508}
+  m_GameObject: {fileID: 7721235540876291311}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335235bcb0e2b22448f9ed3fdf3489e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <N_Connector>k__BackingField: 0
-  <E_Connector>k__BackingField: 0
-  <S_Connector>k__BackingField: 3
-  <W_Connector>k__BackingField: 0
+  <groundConnectors>k__BackingField:
+    N_Connector: 0
+    E_Connector: 0
+    S_Connector: 3
+    W_Connector: 0
   <probability>k__BackingField: 1
   rotated: 1
   rotationID: 3
-  moduleDressingProbability: 0.5
   possibleModuleDressings: []
   selectedModuleDressing: {fileID: 0}
   <moduleDressed>k__BackingField: 1

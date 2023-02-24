@@ -142,10 +142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335235bcb0e2b22448f9ed3fdf3489e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <N_Connector>k__BackingField: 2
-  <E_Connector>k__BackingField: 2
-  <S_Connector>k__BackingField: 2
-  <W_Connector>k__BackingField: 2
+  <groundConnectors>k__BackingField:
+    N_Connector: 2
+    E_Connector: 2
+    S_Connector: 2
+    W_Connector: 2
   <probability>k__BackingField: 125
   rotated: 1
   rotationID: 0

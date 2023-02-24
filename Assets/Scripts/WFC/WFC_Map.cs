@@ -148,50 +148,49 @@ public class WFC_Map : MonoBehaviour
         int coordY = (int)collapsedSlot.coord.y;
 
         //up
-        if (coordY + 1 < map.GetLength(1))
-            map[coordX, coordY + 1].possibleModules = UpdatePossibleModules(map[coordX, coordY + 1].possibleModules, 0, collapsedSlot.collapsedModule.N_Connector);
+        if (coordY + 1 < map.GetLength(1)) 
+        {
+            List<WFC_Module> updatedModulesList = new List<WFC_Module>();
+
+            foreach (WFC_Module module in map[coordX, coordY + 1].possibleModules)
+                if (module.groundConnectors.S_Connector == collapsedSlot.collapsedModule.groundConnectors.N_Connector)
+                    updatedModulesList.Add(module);
+
+            map[coordX, coordY + 1].possibleModules = updatedModulesList.ToArray();
+        }
         //right
         if (coordX + 1 < map.GetLength(0))
-            map[coordX + 1, coordY].possibleModules = UpdatePossibleModules(map[coordX + 1, coordY].possibleModules, 1, collapsedSlot.collapsedModule.E_Connector);
+        {
+            List<WFC_Module> updatedModulesList = new List<WFC_Module>();
+
+            foreach (WFC_Module module in map[coordX + 1, coordY].possibleModules)
+                if (module.groundConnectors.W_Connector == collapsedSlot.collapsedModule.groundConnectors.E_Connector)
+                    updatedModulesList.Add(module);
+
+            map[coordX + 1, coordY].possibleModules = updatedModulesList.ToArray();
+        }
         //down
-        if (coordY - 1 >= 0)
-            map[coordX, coordY - 1].possibleModules = UpdatePossibleModules(map[coordX, coordY - 1].possibleModules, 2, collapsedSlot.collapsedModule.S_Connector);
+        if (coordY - 1 >= 0) 
+        {
+            List<WFC_Module> updatedModulesList = new List<WFC_Module>();
+
+            foreach (WFC_Module module in map[coordX, coordY - 1].possibleModules)
+                if (module.groundConnectors.N_Connector == collapsedSlot.collapsedModule.groundConnectors.S_Connector)
+                    updatedModulesList.Add(module);
+
+            map[coordX, coordY - 1].possibleModules = updatedModulesList.ToArray();
+        }
         //left
         if (coordX - 1 >= 0)
-            map[coordX - 1, coordY].possibleModules = UpdatePossibleModules(map[coordX - 1, coordY].possibleModules, 3, collapsedSlot.collapsedModule.W_Connector);
-    }
-
-    WFC_Module[] UpdatePossibleModules(WFC_Module[] possibleModules, int coord, Connector connector)
-    {
-        List<WFC_Module> updatedModulesList= new List<WFC_Module>();
-
-        switch (coord)
         {
-            case 0:
-                foreach (WFC_Module module in possibleModules)
-                    if (module.S_Connector == connector)
-                        updatedModulesList.Add(module);
-                break;
-            case 1:
-                foreach (WFC_Module module in possibleModules)
-                    if (module.W_Connector == connector)
-                        updatedModulesList.Add(module);
-                break;
+            List<WFC_Module> updatedModulesList = new List<WFC_Module>();
 
-            case 2:
-                foreach (WFC_Module module in possibleModules)
-                    if (module.N_Connector == connector)
-                        updatedModulesList.Add(module);
-                break;
+            foreach (WFC_Module module in map[coordX - 1, coordY].possibleModules)
+                if (module.groundConnectors.E_Connector == collapsedSlot.collapsedModule.groundConnectors.W_Connector)
+                    updatedModulesList.Add(module);
 
-            case 3:
-                foreach (WFC_Module module in possibleModules)
-                    if (module.E_Connector == connector)
-                        updatedModulesList.Add(module);
-                break;
+            map[coordX - 1, coordY].possibleModules = updatedModulesList.ToArray();
         }
-
-        return updatedModulesList.ToArray();
     }
 
     void DestroyMap(WFC_Slot[,] map)
