@@ -22,16 +22,18 @@ public class WFC_Slot : MonoBehaviour
 
     WFC_Module GetWeightedModule()
     {
+        float n = possibleModules.Length;
+
         float totalRatio = 0;
         foreach (WFC_Module pm in possibleModules)
-            totalRatio += pm.probability;
+            totalRatio += n * pm.probabilityPercent;
 
         float weightedRandom = Random.Range(0, totalRatio);
 
         int weightedRandomIndex = 0;
         foreach (WFC_Module pm in possibleModules)
         {
-            if ((weightedRandom -= pm.probability) < 0.0f)
+            if ((weightedRandom -= n * pm.probabilityPercent) <= 0.0f)
                 break;
             weightedRandomIndex++;
         }

@@ -134,9 +134,10 @@ MonoBehaviour:
     E_Connector: 2
     S_Connector: 0
     W_Connector: 0
-  <probability>k__BackingField: 1
+  <probabilityPercent>k__BackingField: 0.01
   rotated: 1
   rotationID: 2
-  possibleModuleDressings: []
-  selectedModuleDressing: {fileID: 0}
-  <moduleDressed>k__BackingField: 1
+  possibleModuleDressings:
+  - {fileID: 7917185415758428197, guid: cb1596e9fd9a0f0499aaed0e1b7219e5, type: 3}
+  <selectedModuleDressing>k__BackingField: {fileID: 0}
+  <moduleDressed>k__BackingField: 0

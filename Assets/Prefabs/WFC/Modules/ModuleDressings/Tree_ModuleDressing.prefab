@@ -241,4 +241,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundPlaceholder: {fileID: 2501593949057128861}
-  <probability>k__BackingField: 1
+  <dressingConnectors>k__BackingField:
+    N_Connector: 0
+    E_Connector: 0
+    S_Connector: 0
+    W_Connector: 0
+  <probabilityPercent>k__BackingField: 0.3

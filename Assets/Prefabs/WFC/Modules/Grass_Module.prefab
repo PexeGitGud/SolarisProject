@@ -142,18 +142,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335235bcb0e2b22448f9ed3fdf3489e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <N_Connector>k__BackingField: 0
-  <E_Connector>k__BackingField: 0
-  <S_Connector>k__BackingField: 0
-  <W_Connector>k__BackingField: 0
-  <probability>k__BackingField: 150
+  <groundConnectors>k__BackingField:
+    N_Connector: 0
+    E_Connector: 0
+    S_Connector: 0
+    W_Connector: 0
+  <probabilityPercent>k__BackingField: 1
   rotated: 1
   rotationID: 0
-  moduleDressingProbability: 0.5
   possibleModuleDressings:
   - {fileID: 7917185415758428197, guid: cb1596e9fd9a0f0499aaed0e1b7219e5, type: 3}
   - {fileID: 7917185415758428197, guid: 22fc5a37e9a42b746b9b96de12fe2b6d, type: 3}
   - {fileID: 4343481451590392743, guid: c3bfe8899a50c6d4a9b4fbf3d9a3bfe1, type: 3}
   - {fileID: 7118200063047939931, guid: 50cefff866892d3438ba333d4484a97b, type: 3}
-  selectedModuleDressing: {fileID: 0}
+  - {fileID: 4555742246050230961, guid: 8ca2b90a6d0619f468babd779bde2e54, type: 3}
+  - {fileID: 6671073867257436178, guid: 504dea10c2ef93d4f8149a026bc98b17, type: 3}
+  - {fileID: 8829844865863879142, guid: 9149824518a0d624880d4f6b6a36a675, type: 3}
+  - {fileID: 6608005631288050513, guid: e0edb7abf50b6084da90ec33d5cce4f2, type: 3}
+  - {fileID: 1338944832575735445, guid: 733830b407fd3ad4f9efb5163992dde8, type: 3}
+  - {fileID: 1798863864120972180, guid: 98f8326fd61ebd646874722a173184a2, type: 3}
+  - {fileID: 2737844324452720283, guid: b583b06398c5f174fa901c80e37ac748, type: 3}
+  - {fileID: 6358898860611922823, guid: bde55c8d8b3a34f43bd91490d40e4ced, type: 3}
+  - {fileID: 4030780778533835302, guid: 727005f63fdf20f42b99cd90fa2e1c8b, type: 3}
+  - {fileID: 7153026127592125943, guid: 6e86a6f38107f364bbac57bd029a61ce, type: 3}
+  - {fileID: 7090585242238802771, guid: a2826dcef3abf0b4e879f23a89eee0c8, type: 3}
+  - {fileID: 7506833738534780230, guid: 781039b986261144bac58407879e04e2, type: 3}
+  - {fileID: 3876203074485791078, guid: 8e729630d10440e46ac30df513eeea7d, type: 3}
+  - {fileID: 4446638719794462154, guid: 6199c925a4f387c46a3f4688c39080c1, type: 3}
+  - {fileID: 2849275687281325750, guid: 98ad2e5ed97ecba4888502208cfec84a, type: 3}
+  <selectedModuleDressing>k__BackingField: {fileID: 0}
   <moduleDressed>k__BackingField: 0

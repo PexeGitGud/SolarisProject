@@ -22,8 +22,8 @@ public class WFC_Module : MonoBehaviour
     [field: SerializeField]
     public Connectors<GroundConnector> groundConnectors { get; private set; }
 
-    [field: SerializeField]
-    public float probability { get; private set; } = 1.0f;
+    [field: SerializeField, Range(0.0f, 1.0f)]
+    public float probabilityPercent { get; private set; } = 0.5f;
 
     [field: Header("Module Rotation")]
     public bool rotated = false;
@@ -31,10 +31,9 @@ public class WFC_Module : MonoBehaviour
     private int rotationID = 0;
 
     [field: Header("Module Dressing")]
+    public WFC_ModuleDressing[] possibleModuleDressings;
     [field: SerializeField]
-    private WFC_ModuleDressing[] possibleModuleDressings;
-    [field: SerializeField]
-    private WFC_ModuleDressing selectedModuleDressing;
+    public WFC_ModuleDressing selectedModuleDressing { get; private set; }
     [field: SerializeField]
     public bool moduleDressed { get; private set; } = false;
 
@@ -69,16 +68,18 @@ public class WFC_Module : MonoBehaviour
 
     WFC_ModuleDressing GetWeightedModuleDressing()
     {
+        float n = possibleModuleDressings.Length;
+
         float totalRatio = 0;
-        foreach (WFC_ModuleDressing pm in possibleModuleDressings)
-            totalRatio += pm.probability;
+        foreach (WFC_ModuleDressing pmd in possibleModuleDressings)
+            totalRatio += n * pmd.probabilityPercent;
 
         float weightedRandom = Random.Range(0, totalRatio);
 
         int weightedRandomIndex = 0;
-        foreach (WFC_ModuleDressing pm in possibleModuleDressings)
+        foreach (WFC_ModuleDressing pmd in possibleModuleDressings)
         {
-            if ((weightedRandom -= pm.probability) < 0.0f)
+            if ((weightedRandom -= n * pmd.probabilityPercent) < 0.0f)
                 break;
             weightedRandomIndex++;
         }
