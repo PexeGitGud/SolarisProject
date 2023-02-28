@@ -37,20 +37,7 @@ public class WFC_Map : MonoBehaviour
         if (stopCollapsing)
             return;
 
-        switch(collapseMode)
-        {
-            case CollapseMode.Gradual:
-                stopCollapsing = !CollapseLowestEntropy(map);
-                break;
-            case CollapseMode.Instantaneous:
-                while (CollapseLowestEntropy(map)) ;
-                stopCollapsing = true;
-                break; 
-            case CollapseMode.Manual:
-                if (Input.anyKey)
-                    stopCollapsing = !CollapseLowestEntropy(map);
-                break;
-        }
+        CollapseModules(map);
     }
 
     public void Startup()
@@ -72,7 +59,7 @@ public class WFC_Map : MonoBehaviour
 
                 WFC_Slot newSlot = Instantiate(slotPrefab, offset, Quaternion.identity, transform);
                 newSlot.transform.localScale = new Vector3(tileSize, tileSize, tileSize);
-                newSlot.coord = new Vector2(x, y);
+                newSlot.coord = new Vector2Int(x, y);
                 newSlot.name = x + "-" + y;
 
                 newMap[x, y] = newSlot;
@@ -80,6 +67,25 @@ public class WFC_Map : MonoBehaviour
         }
 
         return newMap;
+    }
+
+    #region Module
+    void CollapseModules(WFC_Slot[,] map)
+    {
+        switch (collapseMode)
+        {
+            case CollapseMode.Gradual:
+                stopCollapsing = !CollapseLowestEntropy(map);
+                break;
+            case CollapseMode.Instantaneous:
+                while (CollapseLowestEntropy(map)) ;
+                stopCollapsing = true;
+                break;
+            case CollapseMode.Manual:
+                if (Input.anyKey)
+                    stopCollapsing = !CollapseLowestEntropy(map);
+                break;
+        }
     }
 
     bool CollapseLowestEntropy(WFC_Slot[,] map)
@@ -102,7 +108,7 @@ public class WFC_Map : MonoBehaviour
             return false;
         }
 
-        slot.Collapse();
+        slot.CollapseModule();
         PropagatePossibleNeighbors(map, slot);
 
         return true;
@@ -144,8 +150,8 @@ public class WFC_Map : MonoBehaviour
 
     void PropagatePossibleNeighbors(WFC_Slot[,] map, WFC_Slot collapsedSlot) //propagate
     {
-        int coordX = (int)collapsedSlot.coord.x;
-        int coordY = (int)collapsedSlot.coord.y;
+        int coordX = collapsedSlot.coord.x;
+        int coordY = collapsedSlot.coord.y;
 
         //up
         if (coordY + 1 < map.GetLength(1)) 
@@ -206,7 +212,9 @@ public class WFC_Map : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Module Dressing
     void CollapseModuleDressings(WFC_Slot[,] map)
     {
         switch (collapseMode)
@@ -234,7 +242,7 @@ public class WFC_Map : MonoBehaviour
         if(!slot) 
             return false;
 
-        if (slot.collapsedModule.possibleModuleDressings.Length == 0)
+        if (slot.possibleModuleDressings.Length == 0)
         {
             slot.TurnRed();
             Debug.LogWarning("Slot: " + slot.name + " have 0 possible modules dressings - Starting Over...");
@@ -242,7 +250,7 @@ public class WFC_Map : MonoBehaviour
             return false;
         }
 
-        slot.collapsedModule.InstatiateModuleDressing();
+        slot.CollapseModuleDressing();
         PropagatePossibleDressingNeighbors(map, slot);
 
         return true;
@@ -257,19 +265,19 @@ public class WFC_Map : MonoBehaviour
         {
             for (int j = 0; j < map.GetLength(1); j++)
             {
-                if (map[i, j].collapsedModule.moduleDressed)
+                if (map[i, j].moduleDressed)
                     continue;
 
                 if (lowestEntropy == 0)
-                    lowestEntropy = map[i, j].collapsedModule.possibleModuleDressings.Length;
+                    lowestEntropy = map[i, j].possibleModuleDressings.Length;
 
-                if (lowestEntropy > map[i, j].collapsedModule.possibleModuleDressings.Length)
+                if (lowestEntropy > map[i, j].possibleModuleDressings.Length)
                 {
-                    lowestEntropy = map[i, j].collapsedModule.possibleModuleDressings.Length;
+                    lowestEntropy = map[i, j].possibleModuleDressings.Length;
                     lowestEntropySlotList.Clear();
                 }
 
-                if (lowestEntropy == map[i, j].collapsedModule.possibleModuleDressings.Length)
+                if (lowestEntropy == map[i, j].possibleModuleDressings.Length)
                 {
                     lowestEntropySlotList.Add(map[i, j]);
                 }
@@ -284,54 +292,55 @@ public class WFC_Map : MonoBehaviour
 
     void PropagatePossibleDressingNeighbors(WFC_Slot[,] map, WFC_Slot collapsedSlot)
     {
-        int coordX = (int)collapsedSlot.coord.x;
-        int coordY = (int)collapsedSlot.coord.y;
+        int coordX = collapsedSlot.coord.x;
+        int coordY = collapsedSlot.coord.y;
 
         //up
         if (coordY + 1 < map.GetLength(1))
         {
             List<WFC_ModuleDressing> updatedModuleDressingsList = new List<WFC_ModuleDressing>();
 
-            foreach (WFC_ModuleDressing moduleDressing in map[coordX, coordY + 1].collapsedModule.possibleModuleDressings)
-                if (moduleDressing.dressingConnectors.S_Connector == collapsedSlot.collapsedModule.selectedModuleDressing.dressingConnectors.N_Connector)
+            foreach (WFC_ModuleDressing moduleDressing in map[coordX, coordY + 1].possibleModuleDressings)
+                if (moduleDressing.dressingConnectors.S_Connector == collapsedSlot.selectedModuleDressing.dressingConnectors.N_Connector)
                     updatedModuleDressingsList.Add(moduleDressing);
 
-            map[coordX, coordY + 1].collapsedModule.possibleModuleDressings = updatedModuleDressingsList.ToArray();
+            map[coordX, coordY + 1].possibleModuleDressings = updatedModuleDressingsList.ToArray();
         }
         //right
         if (coordX + 1 < map.GetLength(0))
         {
             List<WFC_ModuleDressing> updatedModulesList = new List<WFC_ModuleDressing>();
 
-            foreach (WFC_ModuleDressing moduleDressing in map[coordX + 1, coordY].collapsedModule.possibleModuleDressings)
-                if (moduleDressing.dressingConnectors.W_Connector == collapsedSlot.collapsedModule.selectedModuleDressing.dressingConnectors.E_Connector)
+            foreach (WFC_ModuleDressing moduleDressing in map[coordX + 1, coordY].possibleModuleDressings)
+                if (moduleDressing.dressingConnectors.W_Connector == collapsedSlot.selectedModuleDressing.dressingConnectors.E_Connector)
                     updatedModulesList.Add(moduleDressing);
 
-            map[coordX + 1, coordY].collapsedModule.possibleModuleDressings = updatedModulesList.ToArray();
+            map[coordX + 1, coordY].possibleModuleDressings = updatedModulesList.ToArray();
         }
         //down
         if (coordY - 1 >= 0)
         {
             List<WFC_ModuleDressing> updatedModulesList = new List<WFC_ModuleDressing>();
 
-            foreach (WFC_ModuleDressing moduleDressing in map[coordX, coordY - 1].collapsedModule.possibleModuleDressings)
-                if (moduleDressing.dressingConnectors.N_Connector == collapsedSlot.collapsedModule.selectedModuleDressing.dressingConnectors.S_Connector)
+            foreach (WFC_ModuleDressing moduleDressing in map[coordX, coordY - 1].possibleModuleDressings)
+                if (moduleDressing.dressingConnectors.N_Connector == collapsedSlot.selectedModuleDressing.dressingConnectors.S_Connector)
                     updatedModulesList.Add(moduleDressing);
 
-            map[coordX, coordY - 1].collapsedModule.possibleModuleDressings = updatedModulesList.ToArray();
+            map[coordX, coordY - 1].possibleModuleDressings = updatedModulesList.ToArray();
         }
         //left
         if (coordX - 1 >= 0)
         {
             List<WFC_ModuleDressing> updatedModulesList = new List<WFC_ModuleDressing>();
 
-            foreach (WFC_ModuleDressing moduleDressing in map[coordX - 1, coordY].collapsedModule.possibleModuleDressings)
-                if (moduleDressing.dressingConnectors.E_Connector == collapsedSlot.collapsedModule.selectedModuleDressing.dressingConnectors.W_Connector)
+            foreach (WFC_ModuleDressing moduleDressing in map[coordX - 1, coordY].possibleModuleDressings)
+                if (moduleDressing.dressingConnectors.E_Connector == collapsedSlot.selectedModuleDressing.dressingConnectors.W_Connector)
                     updatedModulesList.Add(moduleDressing);
 
-            map[coordX - 1, coordY].collapsedModule.possibleModuleDressings = updatedModulesList.ToArray();
+            map[coordX - 1, coordY].possibleModuleDressings = updatedModulesList.ToArray();
         }
     }
+    #endregion
 
     public void SetMapSizeX(int newMapSizeX) => mapSizeX = newMapSizeX; 
     public void SetMapSizeY(int newMapSizeY) => mapSizeY = newMapSizeY; 

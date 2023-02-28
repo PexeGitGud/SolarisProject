@@ -251,7 +251,9 @@ MonoBehaviour:
     E_Connector: 1
     S_Connector: 1
     W_Connector: 1
-  <probabilityPercent>k__BackingField: 0.1
+  <probabilityPercent>k__BackingField: 0.01
+  <possibleSlotConnectors>k__BackingField: 0000000001000000
+  rotated: 1
   rotationID: 2
 --- !u!1 &3499120865659405534
 GameObject:

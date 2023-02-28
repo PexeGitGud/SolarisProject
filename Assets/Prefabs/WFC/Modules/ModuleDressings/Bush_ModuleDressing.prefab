@@ -247,3 +247,6 @@ MonoBehaviour:
     S_Connector: 0
     W_Connector: 0
   <probabilityPercent>k__BackingField: 0.2
+  <possibleSlotConnectors>k__BackingField: 0000000001000000
+  rotated: 1
+  rotationID: 0

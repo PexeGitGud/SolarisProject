@@ -130,14 +130,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <groundConnectors>k__BackingField:
-    N_Connector: 3
-    E_Connector: 3
-    S_Connector: 3
-    W_Connector: 2
-  <probabilityPercent>k__BackingField: 0.01
-  rotated: 0
+    N_Connector: 2
+    E_Connector: 2
+    S_Connector: 2
+    W_Connector: 1
+  <probabilityPercent>k__BackingField: 0.005
+  <slotConnector>k__BackingField: 2
+  rotated: 1
   rotationID: 0
-  possibleModuleDressings:
-  - {fileID: 7917185415758428197, guid: cb1596e9fd9a0f0499aaed0e1b7219e5, type: 3}
-  <selectedModuleDressing>k__BackingField: {fileID: 0}
-  <moduleDressed>k__BackingField: 0

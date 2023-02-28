@@ -688,7 +688,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5640843326060939261}
-  - component: {fileID: -6870445210193961936}
   - component: {fileID: 1338944832575735445}
   m_Layer: 0
   m_Name: RockStripe-Cross_ModuleDressing
@@ -719,29 +718,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6870445210193961936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7880705702797481773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 335235bcb0e2b22448f9ed3fdf3489e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <groundConnectors>k__BackingField:
-    N_Connector: 1
-    E_Connector: 1
-    S_Connector: 1
-    W_Connector: 1
-  <probabilityPercent>k__BackingField: 0.01
-  rotated: 1
-  rotationID: 0
-  possibleModuleDressings: []
-  <selectedModuleDressing>k__BackingField: {fileID: 0}
-  <moduleDressed>k__BackingField: 1
 --- !u!114 &1338944832575735445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,5 +736,7 @@ MonoBehaviour:
     E_Connector: 1
     S_Connector: 1
     W_Connector: 1
-  <probabilityPercent>k__BackingField: 0.1
+  <probabilityPercent>k__BackingField: 0.01
+  <possibleSlotConnectors>k__BackingField: 0000000001000000
+  rotated: 1
   rotationID: 0
